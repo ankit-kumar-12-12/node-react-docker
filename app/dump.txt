@@ -1,0 +1,92 @@
+1
+_______________________________________________________________________________________________________
+
+# Use an official Node.js runtime as a base image
+FROM node
+
+# Set the working directory in the container
+#WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json to the working directory
+#COPY package*.json ./
+
+# Install dependencies
+#RUN npm install
+
+# Copy the local code to the container
+COPY . .
+
+# Build the React app
+#RUN npm run build
+
+# Expose the port that the Node server will run on
+EXPOSE 5000
+
+# Command to run your application
+CMD ["npm", "start"]
+
+#docker build -t node_container .
+#docker run -p 5000:5000 node_container
+
+_________________________________________________________________________________________________________________________________________________
+2------------Final Node--------------------------------------------
+
+# Use an official Node.js runtime as a base image
+FROM node
+
+# Copy the local code to the container
+COPY server .
+
+# Build the React app
+#RUN npm run build
+
+# Expose the port that the Node server will run on
+EXPOSE 5000
+
+# Connect to the Docker network
+#NETWORK_MODE="my-network"
+
+# Command to run your application
+CMD ["npm", "start"]
+
+#docker build -t only_node_container .
+#docker run -p 5000:5000 only_node_container
+#docker run -d --network my-network -p 5000:5000 only_node_container
+_________________________________________________________________________________________________________________________________________________
+3---------------Final React---------------------------------------
+
+# Use an official Node.js runtime as a base image
+FROM node
+
+# Copy the local code to the container
+COPY client .
+
+# Build the React app
+#RUN npm run build
+
+# Expose the port that the Node server will run on
+EXPOSE 3000
+
+# Connect to the Docker network
+#NETWORK_MODE="my-network"
+
+# Command to run your application
+CMD ["npm", "start"]
+
+#docker build -t only_react_container .
+#docker run -p 3000:3000 only_react_container
+#docker run -d --network my-network -p 3000:3000 only_react_container
+
+_______________________________________________________________________________________________________
+
+docker network create my-network
+docker network ls
+
+
+_______________________________________________________________________________________________________
+
+in script 
+docker network create my-network
+docker run -d --network my-network -p 3000:3000 only_node_container
+docker run -d --network my-network -p 3000:3000 only_react_container
+
